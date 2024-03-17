@@ -53,12 +53,12 @@ public class CreditCardTest {
         card.pay(BigDecimal.valueOf(100));
 
         assertThrows(
-                NotEneoughMoneyException.class,
-                () -> card.pay(BigDecimal.valueOf(200))
+                NotEnoughMoneyException.class,
+                () -> card.pay(BigDecimal.valueOf(900))
         );
 
         assertEquals(
-                BigDecimal.valueOf(100),
+                BigDecimal.valueOf(800),
                 card.getBalance()
         );
     }

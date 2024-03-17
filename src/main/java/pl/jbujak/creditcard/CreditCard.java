@@ -37,7 +37,7 @@ public class CreditCard {
 
     public void pay(BigDecimal money) {
         if (canAfford(money)){
-            throw  new NotEneoughMoneyException();
+            throw new NotEnoughMoneyException();
         }
         this.balance = this.balance.subtract(money);
     }
