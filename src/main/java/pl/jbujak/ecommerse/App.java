@@ -19,5 +19,6 @@ public class App {
         catalog.addProduct("Lego set 8083" , "Nice one", BigDecimal.valueOf(100));
         catalog.addProduct("Cobi Blocks" , "Nice one" , BigDecimal.valueOf(140));
         return catalog;
+
     }
 }

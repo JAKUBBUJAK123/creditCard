@@ -48,4 +48,5 @@ public class ProductCatalogTest {
 
         assertThat(id).isEqualTo(loaded.getId());
     }
+
 }
