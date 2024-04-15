@@ -20,17 +20,17 @@ public class HasMapProductStorageTest {
         assertThat(products)
                 .hasSize(1)
                 .extracting(Product::getName)
-                .contains(TEST_PRODUCT_NAME);
+                .contains((String) TEST_PRODUCT_NAME);
     }
 
     private Product thereIsExmapleProduct() {
-        return new Product(UUID.randomUUID(), TEST_PRODUCT_NAME, "my des");
+        return new Product(UUID.randomUUID(),"", TEST_PRODUCT_NAME, BigDecimal.valueOf(100));
 
 
     }
 
     private ProductStorage hereIsProductStorage() {
-        return new Product.HashMapProductStorage();
+        return new HashMapProductStorage();
     }
 
     @Test
