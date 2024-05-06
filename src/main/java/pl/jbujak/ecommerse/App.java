@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pl.jbujak.ecommerse.catalog.ProductCatalog;
+import pl.jbujak.ecommerse.catalog.Sales.SalesFacade;
 import pl.jbujak.ecommerse.catalog.SqlProductStorage;
 
 import java.math.BigDecimal;
@@ -20,11 +21,15 @@ public class App {
     @Bean
     ProductCatalog createMyProductCatalog() {
         var catalog = new ProductCatalog(sqlProductStorage);
-        //catalog.setUpDatabase();
-        //catalog.addProduct("Lego set 8083" , "Nice one", BigDecimal.valueOf(100));
-        //catalog.addProduct("Cobi Blocks" , "Nice one" , BigDecimal.valueOf(140));
+        catalog.setUpDatabase();
+        catalog.addProduct("Lego set 8083" , "Nice one", BigDecimal.valueOf(100));
+        catalog.addProduct("Cobi Blocks" , "Nice one" , BigDecimal.valueOf(140));
 
         return catalog;
 
+    }
+    @Bean
+    SalesFacade createSales() {
+        return new SalesFacade();
     }
 }
