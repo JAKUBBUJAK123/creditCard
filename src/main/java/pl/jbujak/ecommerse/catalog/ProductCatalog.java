@@ -1,15 +1,24 @@
 package pl.jbujak.ecommerse.catalog;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 public class ProductCatalog {
 
-    ProductStorage productStorage;
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+    SqlProductStorage productStorage;
+    @Autowired
+    public ProductCatalog(SqlProductStorage productStorage){
+        this.productStorage = productStorage;
+    }
 
-    public ProductCatalog() {
-        this.productStorage = new ArrayListProductStorage();
+    public void setUpDatabase(){
+        productStorage.setUpDatabase();
     }
 
     public List<Product> allProducts() {
@@ -26,8 +35,7 @@ public class ProductCatalog {
     }
 
     public void changePrice(String id, BigDecimal newPrice) {
-        Product loaded = this.getProductBy(id);
-        loaded.changePrice(newPrice);
+        productStorage.changePrice(id, newPrice);
     }
 
     public Product getProductBy(String id) {

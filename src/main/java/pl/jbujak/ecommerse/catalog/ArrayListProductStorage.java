@@ -8,12 +8,19 @@ public class ArrayListProductStorage implements ProductStorage {
     private ArrayList<Product> products;
 
     public ArrayListProductStorage() {
+
         products = new ArrayList<>();
     }
 
     @Override
     public void add(Product newProduct) {
+
         products.add(newProduct);
+    }
+
+    @Override
+    public void setUpDatabase() {
+
     }
 
     @Override
@@ -24,6 +31,7 @@ public class ArrayListProductStorage implements ProductStorage {
     }
     @Override
     public List<Product> allProducts() {
+
         return Collections.unmodifiableList(products);
     }
 }

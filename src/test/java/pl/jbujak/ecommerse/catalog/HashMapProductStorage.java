@@ -26,5 +26,9 @@ public class HashMapProductStorage implements ProductStorage {
         return products.values().stream().toList();
     }
 
+    @Override
+    public void setUpDatabase() {
+
+    }
 }
 
