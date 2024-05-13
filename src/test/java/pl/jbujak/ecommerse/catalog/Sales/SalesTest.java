@@ -13,6 +13,7 @@ public class SalesTest {
         SalesFacade sales = thereIsSalesFacade();
         String customerId =  thereIsExampleCustomer("Kuba");
 
+        //Offer offer = sales.getCurrentOffer(customerId);
         Offer offer = sales.getCurrentOffer(customerId);
 
         assertEquals(0,offer.getItemsCount());
