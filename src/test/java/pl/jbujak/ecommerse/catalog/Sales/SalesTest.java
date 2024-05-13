@@ -30,7 +30,57 @@ public class SalesTest {
 
     @Test
     public void itAllowsToAddProductTocard(){
+        String productId = thereIsProduct("Example" , BigDecimal.valueOf(10));
+        String customerId = thereIsExampleCustomer("Kuba");
+        SalesFacade sales = thereIsSalesFacade();
 
+        sales.addToCart(customerId,productId);
+        Offer offer = sales.getCurrentOffer(customerId);
+
+        assertEquals(1,offer.getItemsCount());
+        assertEquals(BigDecimal.valueOf(10) ,offer.getTotal());
+    }
+
+    @Test
+    public void itAllowsToAddMulitpleProductTocard(){
+        String productA = thereIsProduct("Example a" , BigDecimal.valueOf(10));
+        String productB = thereIsProduct("Example b" , BigDecimal.valueOf(20));
+        String customerId = thereIsExampleCustomer("Kuba");
+        SalesFacade sales = thereIsSalesFacade();
+
+        sales.addToCart(customerId,productA);
+        sales.addToCart(customerId,productB);
+        Offer offer = sales.getCurrentOffer(customerId);
+
+        assertEquals(1,offer.getItemsCount());
+        assertEquals(BigDecimal.valueOf(30) ,offer.getTotal());
+    }
+
+
+    @Test
+    public void itAllowsToAddMultipleProductTocardByCustomer(){
+        String productA = thereIsProduct("Example a" , BigDecimal.valueOf(10));
+        String productB = thereIsProduct("Example b" , BigDecimal.valueOf(20));
+        String customerA = thereIsExampleCustomer("Kuba");
+        String customerB = thereIsExampleCustomer("Michał");
+        SalesFacade sales = thereIsSalesFacade();
+
+        sales.addToCart(customerA,productA);
+        sales.addToCart(customerB,productB);
+        Offer offerA = sales.getCurrentOffer(customerA);
+        Offer offerB = sales.getCurrentOffer(customerB);
+
+        assertEquals(1,offerA.getItemsCount());
+        assertEquals(BigDecimal.valueOf(10) ,offerA.getTotal());
+
+        assertEquals(1,offerB.getItemsCount());
+        assertEquals(BigDecimal.valueOf(20) ,offerB.getTotal());
+    }
+
+
+
+    private String thereIsProduct(String example, BigDecimal bigDecimal) {
+        return null;
     }
 
     @Test

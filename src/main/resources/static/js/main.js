@@ -16,7 +16,7 @@ const createProductHtml = (productData) => {
             <img src="https://picsum.photos/id/237/200/300"/>
             <button data-id="${productData.id}">Add to cart</button>
         </div>
-    `
+    `;
 
   const productEl = document.createElement('li');
   productEl.innerHTML = template.trim();
@@ -33,6 +33,5 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 });
 
-console.log("adsadsadasads")
 
 
