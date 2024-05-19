@@ -1,15 +1,15 @@
 getProducts = () => {
-  return fetch("/api/products")
-      .then(response => response.json());
+    return fetch("/api/products")
+        .then(response => response.json());
 }
 getCurrentOffer = () => {
     return fetch("api/current-offer")
-    .then(response => response.json());
+        .then(response => response.json());
 }
 
-
 const createProductHtml = (productData) => {
-  const template = `
+
+    const template = `
         <div>
             <h4>${productData.name}</h4>
             <span>${productData.price}</span>
@@ -18,20 +18,17 @@ const createProductHtml = (productData) => {
         </div>
     `;
 
-  const productEl = document.createElement('li');
-  productEl.innerHTML = template.trim();
+    const productEl = document.createElement('li');
+    productEl.innerHTML = template.trim();
 
-  return productEl;
+    return productEl;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const productsListEl = document.querySelector("#productsList");
-  getProducts()
-      .then(productsAsJsonObj => productsAsJsonObj.map(createProductHtml()))
-      .then(productsAsHtmlEl => {
-        productsAsHtmlEl.forEach(productEl => productsListEl.appendChild(productEl));
-      })
+    const productsListEl = document.querySelector("#productsList");
+    getProducts()
+        .then(productsAsJsonObj => productsAsJsonObj.map(createProductHtml))
+        .then(productsAsHtmlEl => {
+            productsAsHtmlEl.forEach(productEl => productsListEl.appendChild(productEl));
+        })
 });
-
-
-
