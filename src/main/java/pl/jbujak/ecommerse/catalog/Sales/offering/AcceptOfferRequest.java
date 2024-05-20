@@ -1,4 +1,4 @@
-package pl.jbujak.ecommerse.catalog.Sales;
+package pl.jbujak.ecommerse.catalog.Sales.offering;
 
 public class AcceptOfferRequest {
     String firstname;

@@ -10,6 +10,8 @@ import pl.jbujak.ecommerse.catalog.ProductCatalog;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import pl.jbujak.ecommerse.catalog.Sales.offering.AcceptOfferRequest;
+import pl.jbujak.ecommerse.catalog.Sales.order.ReservationDetails;
 
 import java.math.BigDecimal;
 
@@ -51,4 +53,5 @@ public class SalesHTTPTest {
     catalog.changePrice(prodId,price);
     return prodId;
     }
+
 }

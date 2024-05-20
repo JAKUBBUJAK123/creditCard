@@ -2,6 +2,10 @@ package pl.jbujak.ecommerse.catalog.Sales;
 
 
 import org.junit.jupiter.api.Test;
+import pl.jbujak.ecommerse.catalog.Sales.cart.inMemoryCartStorage;
+import pl.jbujak.ecommerse.catalog.Sales.offering.Offer;
+import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculaotr;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
@@ -25,11 +29,11 @@ public class SalesTest {
     }
 
     private SalesFacade thereIsSalesFacade() {
-        return new SalesFacade();
+        return new SalesFacade(new inMemoryCartStorage(), new OfferCalculaotr());
     }
 
     @Test
-    public void itAllowsToAddProductTocard(){
+    public void itAllowsToAddProductToCart(){
         String productId = thereIsProduct("Example" , BigDecimal.valueOf(10));
         String customerId = thereIsExampleCustomer("Kuba");
         SalesFacade sales = thereIsSalesFacade();
@@ -42,7 +46,7 @@ public class SalesTest {
     }
 
     @Test
-    public void itAllowsToAddMulitpleProductTocard(){
+    public void itAllowsToAddMultipleProductToCart(){
         String productA = thereIsProduct("Example a" , BigDecimal.valueOf(10));
         String productB = thereIsProduct("Example b" , BigDecimal.valueOf(20));
         String customerId = thereIsExampleCustomer("Kuba");

@@ -1,9 +1,12 @@
-package pl.jbujak.ecommerse.catalog.Sales;
+package pl.jbujak.ecommerse.catalog.Sales.ui;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.jbujak.ecommerse.catalog.Sales.SalesFacade;
+import pl.jbujak.ecommerse.catalog.Sales.offering.Offer;
+import pl.jbujak.ecommerse.catalog.Sales.order.ReservationDetails;
 
 @RestController
 public class SalesController {

@@ -1,4 +1,4 @@
-package pl.jbujak.ecommerse.catalog.Sales;
+package pl.jbujak.ecommerse.catalog.Sales.order;
 
 import java.math.BigDecimal;
 
