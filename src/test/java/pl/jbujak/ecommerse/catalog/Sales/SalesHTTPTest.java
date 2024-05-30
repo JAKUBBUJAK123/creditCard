@@ -44,7 +44,7 @@ public class SalesHTTPTest {
         assertEquals(HttpStatus.OK, reservationResponse.getStatusCode());
         assertEquals(BigDecimal.valueOf(10), reservationResponse.getBody().getTotal());
         assertNotNull(reservationResponse.getBody().getReservationId());
-        assertNotNull(reservationResponse.getBody().getPayment());
+        assertNotNull(reservationResponse.getBody().getPaymentUrl());
 
     }
 

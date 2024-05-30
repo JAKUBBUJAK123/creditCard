@@ -7,6 +7,6 @@ import java.util.Optional;
 public class inMemoryCartStorage {
 
     public Optional<Cart> findByCustomer(String customerId) {
-        return null;
+        return Optional.empty();
     }
 }

@@ -1,10 +1,8 @@
 package pl.jbujak.ecommerse.catalog.Sales.ui;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.jbujak.ecommerse.catalog.Sales.SalesFacade;
+import pl.jbujak.ecommerse.catalog.Sales.offering.AcceptOfferRequest;
 import pl.jbujak.ecommerse.catalog.Sales.offering.Offer;
 import pl.jbujak.ecommerse.catalog.Sales.order.ReservationDetails;
 
@@ -23,9 +21,9 @@ public class SalesController {
     }
 
     @PostMapping("/api/accept-offer")
-    ReservationDetails acceptOffer() {
+    ReservationDetails acceptOffer(@RequestBody AcceptOfferRequest acceptOfferRequest) {
         String customerId = getCurrentCustomerId();
-        ReservationDetails details = sales.acceptOffer(customerId);
+        ReservationDetails details = sales.acceptOffer(customerId, acceptOfferRequest);
         return details;
     }
     @PostMapping("/api/add-to-cart/{productId}")

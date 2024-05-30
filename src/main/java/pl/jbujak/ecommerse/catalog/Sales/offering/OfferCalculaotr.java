@@ -10,4 +10,5 @@ public class OfferCalculaotr {
     public static Offer calculate(List<CartLine> lines) {
         return new Offer();
     }
+
 }

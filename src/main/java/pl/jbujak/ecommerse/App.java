@@ -5,9 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pl.jbujak.ecommerse.catalog.ProductCatalog;
+import pl.jbujak.ecommerse.catalog.Sales.PayUGateway;
 import pl.jbujak.ecommerse.catalog.Sales.SalesFacade;
 import pl.jbujak.ecommerse.catalog.Sales.cart.inMemoryCartStorage;
 import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculaotr;
+import pl.jbujak.ecommerse.catalog.Sales.reservation.ReservationRepository;
 import pl.jbujak.ecommerse.catalog.SqlProductStorage;
 
 import java.math.BigDecimal;
@@ -32,6 +34,6 @@ public class App {
     }
     @Bean
     SalesFacade createSales() {
-        return new SalesFacade(new inMemoryCartStorage(), new OfferCalculaotr());
+        return new SalesFacade(new inMemoryCartStorage(), new OfferCalculaotr(), new PayUGateway() , new ReservationRepository());
     }
 }
