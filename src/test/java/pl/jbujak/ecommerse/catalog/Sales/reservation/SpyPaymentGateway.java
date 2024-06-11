@@ -1,8 +1,8 @@
 package pl.jbujak.ecommerse.catalog.Sales.reservation;
 
-import pl.jbujak.ecommerse.catalog.Sales.PaymentDetails;
-import pl.jbujak.ecommerse.catalog.Sales.PaymentGateway;
-import pl.jbujak.ecommerse.catalog.Sales.RegisterPaymentRequest;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.PaymentDetails;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.PaymentGateway;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.RegisterPaymentRequest;
 
 public class SpyPaymentGateway implements PaymentGateway {
     Integer requestCount = 0;

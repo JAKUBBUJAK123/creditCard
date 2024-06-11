@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import pl.jbujak.ecommerse.catalog.Sales.SalesFacade;
 import pl.jbujak.ecommerse.catalog.Sales.cart.inMemoryCartStorage;
 import pl.jbujak.ecommerse.catalog.Sales.offering.AcceptOfferRequest;
-import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculaotr;
+import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculator;
 import pl.jbujak.ecommerse.catalog.Sales.order.ReservationDetails;
 
 import  static org.assertj.core.api.Assertions.*;
@@ -88,7 +88,7 @@ public class OfferActeptanceTest {
     }
 
     private SalesFacade thereIsSales() {
-    return new SalesFacade(new inMemoryCartStorage(), new OfferCalculaotr() , spyPaymentGateway, reservationRepository);
+    return new SalesFacade(new inMemoryCartStorage(), new OfferCalculator() , spyPaymentGateway, reservationRepository);
         }
 
 }

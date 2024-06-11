@@ -1,6 +1,6 @@
 package pl.jbujak.ecommerse.catalog.Sales.reservation;
 
-import pl.jbujak.ecommerse.catalog.Sales.PaymentDetails;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.PaymentDetails;
 import pl.jbujak.ecommerse.catalog.Sales.offering.AcceptOfferRequest;
 import pl.jbujak.ecommerse.catalog.Sales.offering.Offer;
 

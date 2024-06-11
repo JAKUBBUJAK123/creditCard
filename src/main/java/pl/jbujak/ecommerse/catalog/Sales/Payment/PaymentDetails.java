@@ -1,4 +1,4 @@
-package pl.jbujak.ecommerse.catalog.Sales;
+package pl.jbujak.ecommerse.catalog.Sales.Payment;
 
 public class PaymentDetails {
     private final String url;

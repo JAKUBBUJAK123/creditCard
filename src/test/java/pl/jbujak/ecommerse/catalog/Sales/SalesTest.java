@@ -4,7 +4,7 @@ package pl.jbujak.ecommerse.catalog.Sales;
 import org.junit.jupiter.api.Test;
 import pl.jbujak.ecommerse.catalog.Sales.cart.inMemoryCartStorage;
 import pl.jbujak.ecommerse.catalog.Sales.offering.Offer;
-import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculaotr;
+import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculator;
 import pl.jbujak.ecommerse.catalog.Sales.reservation.ReservationRepository;
 import pl.jbujak.ecommerse.catalog.Sales.reservation.SpyPaymentGateway;
 
@@ -31,7 +31,7 @@ public class SalesTest {
     }
 
     private SalesFacade thereIsSalesFacade() {
-        return new SalesFacade(new inMemoryCartStorage(), new OfferCalculaotr() , new SpyPaymentGateway(), new ReservationRepository());
+        return new SalesFacade(new inMemoryCartStorage(), new OfferCalculator() , new SpyPaymentGateway(), new ReservationRepository());
     }
 
     @Test

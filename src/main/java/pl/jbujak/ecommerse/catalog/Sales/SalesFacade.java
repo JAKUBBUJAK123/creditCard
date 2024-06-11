@@ -1,11 +1,13 @@
 package pl.jbujak.ecommerse.catalog.Sales;
 
-import pl.jbujak.ecommerse.catalog.ArrayListProductStorage;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.PaymentDetails;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.PaymentGateway;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.RegisterPaymentRequest;
 import pl.jbujak.ecommerse.catalog.Sales.cart.Cart;
 import pl.jbujak.ecommerse.catalog.Sales.cart.inMemoryCartStorage;
 import pl.jbujak.ecommerse.catalog.Sales.offering.AcceptOfferRequest;
 import pl.jbujak.ecommerse.catalog.Sales.offering.Offer;
-import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculaotr;
+import pl.jbujak.ecommerse.catalog.Sales.offering.OfferCalculator;
 import pl.jbujak.ecommerse.catalog.Sales.order.ReservationDetails;
 import pl.jbujak.ecommerse.catalog.Sales.reservation.Reservation;
 import pl.jbujak.ecommerse.catalog.Sales.reservation.ReservationRepository;
@@ -15,11 +17,11 @@ import java.util.UUID;
 
 public class SalesFacade {
     private inMemoryCartStorage cartStorage;
-    private OfferCalculaotr Calculator;
+    private OfferCalculator Calculator;
     private PaymentGateway paymentGateway;
     private ReservationRepository reservationRepository;
 
-    public SalesFacade(inMemoryCartStorage cartStorage , OfferCalculaotr calculator, PaymentGateway paymentGateway , ReservationRepository reservationRepository) {
+    public SalesFacade(inMemoryCartStorage cartStorage , OfferCalculator calculator, PaymentGateway paymentGateway , ReservationRepository reservationRepository) {
         this.cartStorage = cartStorage;
         this.Calculator = calculator;
         this.paymentGateway = paymentGateway;
@@ -28,7 +30,7 @@ public class SalesFacade {
 
     public Offer getCurrentOffer(String customerId) {
         Cart cart = loadCartForCustomer(customerId);
-        return OfferCalculaotr.calculate(cart.getLines());
+        return OfferCalculator.calculate(cart.getLines());
     }
 
     public ReservationDetails acceptOffer(String customerId, AcceptOfferRequest acceptOfferRequest) {
