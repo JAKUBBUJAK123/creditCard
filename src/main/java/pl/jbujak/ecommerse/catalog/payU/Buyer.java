@@ -1,11 +1,23 @@
 package pl.jbujak.ecommerse.catalog.payU;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 public class Buyer {
     String email;
     String phone;
     String firstName;
     String lastName;
     String language;
+    List<ProductU> Products;
+
+    public List<ProductU> getProducts() {
+        return Products;
+    }
+
+    public void setProducts(List<ProductU> products) {
+        Products = products;
+    }
 
     public void setEmail(String email) {
         this.email = email;

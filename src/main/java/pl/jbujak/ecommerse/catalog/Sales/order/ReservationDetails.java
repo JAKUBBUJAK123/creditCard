@@ -1,29 +1,53 @@
 package pl.jbujak.ecommerse.catalog.Sales.order;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
 public class ReservationDetails {
-    private final String reservationId;
-    private final String paymentUrl;
-    public ReservationDetails(String reservationId, String paymentUrl) {
-        this.reservationId = reservationId;
-        this.paymentUrl = paymentUrl;
 
+    private String reservationId;
+    private String paymentURL;
+    private BigDecimal total;
+
+    @JsonCreator
+    public ReservationDetails(@JsonProperty("reservationId") String reservationId,
+                              @JsonProperty("paymentURL") String paymentURL,
+                              @JsonProperty("total") BigDecimal total) {
+        this.reservationId = reservationId;
+        this.paymentURL = paymentURL;
+        this.total = total;
+    }
+
+    public ReservationDetails() {
+    }
+
+    public ReservationDetails setReservationId(String reservationId) {
+        this.reservationId = reservationId;
+        return this;
+    }
+
+    public ReservationDetails setPaymentURL(String paymentURL) {
+        this.paymentURL = paymentURL;
+        return this;
+    }
+
+    public ReservationDetails setTotal(BigDecimal total) {
+        this.total = total;
+        return this;
     }
 
     public BigDecimal getTotal() {
-        return BigDecimal.ZERO;
+        return total;
     }
 
     public String getReservationId() {
-    return reservationId;
+        return reservationId;
     }
 
-    //public String getPayment() {
-    //return "http://example-product";
-    //}
-    public String getPaymentUrl(){
-        return paymentUrl;
+    public String getPaymentURL() {
+        return paymentURL;
     }
 
 

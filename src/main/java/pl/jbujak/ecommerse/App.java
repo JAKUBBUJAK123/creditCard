@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import pl.jbujak.ecommerse.catalog.ProductCatalog;
+import pl.jbujak.ecommerse.catalog.Sales.Payment.PaymentGateway;
+import pl.jbujak.ecommerse.catalog.payU.PayU;
+import pl.jbujak.ecommerse.catalog.payU.PayUCredentials;
 import pl.jbujak.ecommerse.catalog.payU.PayUGateway;
 import pl.jbujak.ecommerse.catalog.Sales.SalesFacade;
 import pl.jbujak.ecommerse.catalog.Sales.cart.inMemoryCartStorage;
@@ -33,7 +37,17 @@ public class App {
 
     }
     @Bean
-    SalesFacade createSales() {
-        return new SalesFacade(new inMemoryCartStorage(), new OfferCalculator(), new PayUGateway() , new ReservationRepository());
+    SalesFacade createSales(ProductCatalog catalog) {
+        return new SalesFacade(new inMemoryCartStorage(), new OfferCalculator(catalog), createPaymentGateway() , new ReservationRepository());
+    }
+    @Bean
+    PaymentGateway createPaymentGateway() {
+        return new PayU(
+                new RestTemplate(),
+                PayUCredentials.sandbox(
+                        "300746",
+                        "2ee86a66e5d97e3fadc400c9f19b065d"
+                )
+        );
     }
 }

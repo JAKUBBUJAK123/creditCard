@@ -29,8 +29,9 @@ public class SalesFacade {
     }
 
     public Offer getCurrentOffer(String customerId) {
-        Cart cart = loadCartForCustomer(customerId);
-        return OfferCalculator.calculate(cart.getLines());
+        Cart cart = cartStorage.findByCustomer(customerId)
+                .orElse(Cart.empty());
+        return Calculator.calculate(cart.getLines());
     }
 
     public ReservationDetails acceptOffer(String customerId, AcceptOfferRequest acceptOfferRequest) {
@@ -38,18 +39,19 @@ public class SalesFacade {
         Offer offer = this.getCurrentOffer(customerId);
 
         PaymentDetails paymentDetails = paymentGateway.registerPayment(
-                RegisterPaymentRequest.of(acceptOfferRequest, offer.getTotal())
+                RegisterPaymentRequest.of(reservationId,acceptOfferRequest, offer.getTotal())
         );
         Reservation reservation = Reservation.of(reservationId, customerId, acceptOfferRequest, offer ,paymentDetails);
         reservationRepository.add(reservation);
 
-        return new ReservationDetails(reservationId , paymentDetails.getPaymentUrl());
+        return new ReservationDetails(reservationId , paymentDetails.getPaymentUrl() , offer.getTotal());
     }
 
     public void addToCart(String customerId, String productId) {
         Cart cart = loadCartForCustomer(customerId);
 
         cart.addProduct(productId);
+        cartStorage.save(customerId, cart);
     }
 
 

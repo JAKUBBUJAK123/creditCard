@@ -13,6 +13,10 @@ public class inMemoryCartStorage {
         this.carts = new HashMap<>() ;
     }
     public Optional<Cart> findByCustomer(String customerId) {
-        return Optional.empty();
+        return Optional.ofNullable(carts.get(customerId));
+    }
+
+    public void save(String customerId, Cart cart) {
+        carts.put(customerId,cart);
     }
 }

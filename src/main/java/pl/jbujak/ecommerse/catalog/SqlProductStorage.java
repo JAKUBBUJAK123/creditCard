@@ -32,9 +32,9 @@ public class SqlProductStorage implements ProductStorage{
         var myInsertSQL =String.format("""
                 INSERT INTO `product_catalog__products` (id, name, description, price)
                 VALUES
-                    ('%s', '%s', '%s', %.0f);
+                    (?,?,?,?);
                 """,newProduct.getId(), newProduct.getName(), newProduct.getDescription(), newProduct.getPrice());
-        jdbcTemplate.execute(myInsertSQL);
+        jdbcTemplate.update(myInsertSQL ,newProduct.getId(), newProduct.getName(),newProduct.getDescription(), newProduct.getPrice());
     }
 
     @Override
