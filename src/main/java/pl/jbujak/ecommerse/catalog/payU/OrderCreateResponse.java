@@ -3,38 +3,42 @@ package pl.jbujak.ecommerse.catalog.payU;
 public class OrderCreateResponse {
     String extraOrderId;
     Status status;
-    String redirectId;
+    String redirectUri;
     String orderId;
 
-    public String getExtraOrderId() {
+    public String getExtOrderId() {
         return extraOrderId;
     }
 
-    public void setExtraOrderId(String extraOrderId) {
-        this.extraOrderId = extraOrderId;
+    public OrderCreateResponse setExtOrderId(String extOrderId) {
+        this.extraOrderId = extOrderId;
+        return this;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public OrderCreateResponse setStatus(Status status) {
         this.status = status;
+        return this;
     }
 
-    public String getRedirectId() {
-        return redirectId;
+    public OrderCreateResponse setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
+        return this;
     }
 
-    public void setRedirectId(String redirectId) {
-        this.redirectId = redirectId;
+    public OrderCreateResponse setOrderId(String orderId) {
+        this.orderId = orderId;
+        return this;
+    }
+
+    public String getRedirectUri() {
+        return redirectUri;
     }
 
     public String getOrderId() {
         return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
     }
 }

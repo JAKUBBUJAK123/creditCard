@@ -23,11 +23,10 @@ public class SalesController {
     @PostMapping("/api/accept-offer")
     ReservationDetails acceptOffer(@RequestBody AcceptOfferRequest acceptOfferRequest) {
         String customerId = getCurrentCustomerId();
-        ReservationDetails details = sales.acceptOffer(customerId, acceptOfferRequest);
-        return details;
+        return sales.acceptOffer(customerId,acceptOfferRequest);
     }
     @PostMapping("/api/add-to-cart/{productId}")
-    void addToCart(@PathVariable String productId){
+    void addToCart(@PathVariable(name = "productId") String productId){
         String customerId = getCurrentCustomerId();
         sales.addToCart(customerId,productId);
     }

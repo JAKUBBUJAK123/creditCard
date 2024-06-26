@@ -1,5 +1,6 @@
 package pl.jbujak.ecommerse.catalog;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -8,11 +9,10 @@ import java.util.List;
 import java.util.UUID;
 @Component
 public class SqlProductStorage implements ProductStorage{
-    private final JdbcTemplate jdbcTemplate;
 
-    public SqlProductStorage(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     public void setUpDatabase() {
         jdbcTemplate.execute("DROP TABLE `product_catalog__products` IF EXISTS");
         var createTableSQL = """
@@ -29,11 +29,11 @@ public class SqlProductStorage implements ProductStorage{
 
     @Override
     public void add(Product newProduct) {
-        var myInsertSQL =String.format("""
+        var myInsertSQL ="""
                 INSERT INTO `product_catalog__products` (id, name, description, price)
                 VALUES
                     (?,?,?,?);
-                """,newProduct.getId(), newProduct.getName(), newProduct.getDescription(), newProduct.getPrice());
+                """;
         jdbcTemplate.update(myInsertSQL ,newProduct.getId(), newProduct.getName(),newProduct.getDescription(), newProduct.getPrice());
     }
 

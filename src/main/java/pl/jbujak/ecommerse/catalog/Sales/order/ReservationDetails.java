@@ -1,10 +1,11 @@
 package pl.jbujak.ecommerse.catalog.Sales.order;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ReservationDetails {
 
     private String reservationId;

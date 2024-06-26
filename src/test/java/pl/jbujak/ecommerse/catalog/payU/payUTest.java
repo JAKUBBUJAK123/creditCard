@@ -4,45 +4,49 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
+import pl.jbujak.ecommerse.catalog.ProductCatalog;
 
 import java.util.Arrays;
 import java.util.UUID;
 
 
-@SpringBootTest
+
 public class payUTest {
     @Test
-    void creatingNewPayment(){
+    void itRegisterNewPayment() {
         PayU payu = thereIsPayU();
-        OrderCreateRequest orderCreateRequest = createExampleOrderRequest();
+        OrderCreateRequest request = thereIsExampleOrderCreateRequest();
 
-        OrderCreateResponse response = payu.handle(orderCreateRequest);
+        OrderCreateResponse response = payu.handle(request);
 
-        assertNotNull(response.getRedirectId());
         assertNotNull(response.getOrderId());
+        assertNotNull(response.getRedirectUri());
     }
 
-    private OrderCreateRequest createExampleOrderRequest() {
-        var createRequest = new OrderCreateRequest();
-        createRequest.setNotifyUrl("https://my.example.shop.wbub.pl/api/order");
-        createRequest.setCustomerIp("127.0.0.1");
-        createRequest.setMerchantPostIp("300746");
-        createRequest.setDescription("My ebook");
-        createRequest.setCurrencyCode("PLN");
-        createRequest.setTotalAmount(21000);
-        createRequest.setExtraOrderId(UUID.randomUUID().toString());
-        Buyer buyer = new Buyer();
-        buyer.setFirstName("John");
-        buyer.setLastName("Doe");
-        buyer.setEmail("john.doe@example.com");
-        buyer.setLanguage("pl");
-        createRequest.setBuyer(buyer);
+    private OrderCreateRequest thereIsExampleOrderCreateRequest() {
+        var request = new OrderCreateRequest();
         ProductU product = new ProductU();
-        product.setName("Product X");
-        product.setQuantity(1);
+        product.setName("Nice product");
         product.setUnitPrice(210000);
-        createRequest.setProducts(Arrays.asList(product));
-        return createRequest;
+        product.setQuantity(1);
+        request
+                .setNotifyUrl("https://your.eshop.com/notify")
+                .setCustomerIp("127.0.0.1")
+                .setMerchantPosId("300746")
+                .setDescription("My digital product")
+                .setCurrencyCode("PLN")
+                .setTotalAmount(15500)
+                .setExtOrderId(UUID.randomUUID().toString())
+                .setBuyer(new Buyer()
+                        .setEmail("kuba.doe@example.com")
+                        .setFirstName("john")
+                        .setLastName("doe")
+                        .setLanguage("pl")
+                )
+                .setProducts(Arrays.asList(product
+                ));
+
+        return request;
     }
 
     private PayU thereIsPayU() {
@@ -51,7 +55,6 @@ public class payUTest {
                 PayUCredentials.sandbox(
                         "300746",
                         "2ee86a66e5d97e3fadc400c9f19b065d"
-                )
-        );
+                ));
     }
 }

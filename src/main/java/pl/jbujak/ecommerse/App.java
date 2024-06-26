@@ -20,14 +20,16 @@ import java.math.BigDecimal;
 
 @SpringBootApplication
 public class App {
-    @Autowired
-    SqlProductStorage sqlProductStorage;
     public static void main(String[] args){
         System.out.println("Here we go!!!");
         SpringApplication.run(App.class,args);
     }
     @Bean
-    ProductCatalog createMyProductCatalog() {
+    public SqlProductStorage sqlProductStorage() {
+        return new SqlProductStorage();
+    }
+    @Bean
+    ProductCatalog createMyProductCatalog(SqlProductStorage sqlProductStorage) {
         var catalog = new ProductCatalog(sqlProductStorage);
         catalog.setUpDatabase();
         catalog.addProduct("Lego set 8083" , "Nice one", BigDecimal.valueOf(100));

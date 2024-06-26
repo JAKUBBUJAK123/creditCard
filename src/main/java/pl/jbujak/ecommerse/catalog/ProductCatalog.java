@@ -9,9 +9,8 @@ import java.util.UUID;
 
 public class ProductCatalog {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
     SqlProductStorage productStorage;
+
     @Autowired
     public ProductCatalog(SqlProductStorage productStorage){
         this.productStorage = productStorage;

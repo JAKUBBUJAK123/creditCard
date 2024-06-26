@@ -11,6 +11,9 @@ public class Offer {
         this.itemsCount = itemsCount;
     }
 
+    public Offer() {
+    }
+
     public Object getItemsCount() {
         return itemsCount;
     }

@@ -15,15 +15,15 @@ public class PayUPaymentGateway implements PaymentGateway {
     }
 
     @Override
-    public PaymentDetails registerPayment(RegisterPaymentRequest of) {
+    public PaymentDetails registerPayment(RegisterPaymentRequest registerPaymentRequest) {
         var createRequest = new OrderCreateRequest();
         createRequest.setNotifyUrl("https://my.example.shop.wbub.pl/api/order");
         createRequest.setCustomerIp("127.0.0.1");
-        createRequest.setMerchantPostIp("300746");
+        createRequest.setMerchantPosId("300746");
         createRequest.setDescription("My ebook");
         createRequest.setCurrencyCode("PLN");
         createRequest.setTotalAmount(21000);
-        createRequest.setExtraOrderId(UUID.randomUUID().toString());
+        createRequest.setExtOrderId(UUID.randomUUID().toString());
         Buyer buyer = new Buyer();
         buyer.setFirstName("John");
         buyer.setLastName("Doe");

@@ -2,6 +2,9 @@ package pl.jbujak.ecommerse.catalog.Sales.reservation;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import pl.jbujak.ecommerse.catalog.ProductCatalog;
 import pl.jbujak.ecommerse.catalog.Sales.SalesFacade;
 import pl.jbujak.ecommerse.catalog.Sales.cart.inMemoryCartStorage;
 import pl.jbujak.ecommerse.catalog.Sales.offering.AcceptOfferRequest;
@@ -12,83 +15,92 @@ import  static org.assertj.core.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-
+@SpringBootTest
 public class OfferActeptanceTest {
 
-    private ReservationRepository reservationRepository;
     private SpyPaymentGateway spyPaymentGateway;
+    private ReservationRepository reservationRepository;
+
+    @Autowired
+    ProductCatalog catalog;
 
     @BeforeEach
-    void SetUp(){
+    void setUp(){
         spyPaymentGateway = new SpyPaymentGateway();
         reservationRepository = new ReservationRepository();
     }
-
     @Test
-    void itAllowsToAcceptAnOffer() {
+    void itAllowsToAcceptAnOffer(){
         SalesFacade sales = thereIsSales();
-        String customerId  = thereIsCustomr("Kuba");
-        String productId = thereIsProduct("X" , BigDecimal.valueOf(10));
+        String customerId = thereIsCustomer("Jakub");
+        String productId= thereIsProduct("Product 1", "Desc", BigDecimal.valueOf(10));
 
-        sales.addToCart(customerId,productId);
-        sales.addToCart(customerId,productId);
+        sales.addToCart(customerId, productId);
+        sales.addToCart(customerId, productId);
 
         var acceptOfferRequest = new AcceptOfferRequest();
-        acceptOfferRequest.setFirstname("john").setLastname("doe")
-                .setEmail("john.doe@example.com");
-
-        sales.acceptOffer(customerId,acceptOfferRequest);
+        acceptOfferRequest
+                .setFirstname("john")
+                .setLastname("doe")
+                .setEmail("jd@example.com");
         ReservationDetails reservationDetails = sales.acceptOffer(customerId, acceptOfferRequest);
 
-        assertThat(reservationDetails.getPaymentUrl()).isNotBlank();
+        assertThat(reservationDetails.getPaymentURL()).isNotBlank();
         assertThat(reservationDetails.getReservationId()).isNotBlank();
 
         assertPaymentHasBeenRegistered();
         assertThereIsReservationWithId(reservationDetails.getReservationId());
         assertReservationIsPending(reservationDetails.getReservationId());
-        assertReservationIsDoneForCustomer(reservationDetails.getReservationId() , "john" , "doe" , "john.doe@example.com");
-        assertReservationTotalMatchOffer(reservationDetails.getReservationId(), BigDecimal.valueOf(20));
+        assertReservationIsDoneForCustomer(reservationDetails.getReservationId(), "john", "doe", "jd@example.com");
+        assertReservationTotalMatchOffer(reservationDetails.getReservationId(), BigDecimal.valueOf(20.0));
     }
 
     private void assertReservationTotalMatchOffer(String reservationId, BigDecimal expectedTotal) {
-        Reservation loaded = reservationRepository.load(reservationId).get();
+        Reservation loaded = reservationRepository.load(reservationId)
+                .get();
         assertThat(loaded.getTotal()).isEqualTo(expectedTotal);
     }
 
-    private void assertReservationIsDoneForCustomer(String reservationId, String fname, String lname, String mail) {
-        Reservation loaded = reservationRepository.load(reservationId).get();
-        CustomerDetails customerDetails = loaded.getCustomerDetails();
-        assertThat(customerDetails.getFirstname()).isEqualTo(fname);
-        assertThat(customerDetails.getLastname()).isEqualTo(lname);
-        assertThat(customerDetails.getEmail()).isEqualTo(mail);
+    private void assertReservationIsDoneForCustomer(String reservationId, String firstname, String lastname, String email) {
+        Reservation loaded = reservationRepository.load(reservationId)
+                .get();
+
+        CustomerDetails clientData = loaded.getCustomerDetails();
+        assertThat(clientData.getFirstname()).isEqualTo(firstname);
+        assertThat(clientData.getLastname()).isEqualTo(lastname);
+        assertThat(clientData.getEmail()).isEqualTo(email);
     }
 
     private void assertReservationIsPending(String reservationId) {
         Reservation loaded = reservationRepository.load(reservationId)
                 .get();
+
         assertThat(loaded.isPending()).isTrue();
     }
 
     private void assertThereIsReservationWithId(String reservationId) {
         Optional<Reservation> loaded = reservationRepository.load(reservationId);
-
         assertThat(loaded).isPresent();
     }
 
     private void assertPaymentHasBeenRegistered() {
-        assertThat(spyPaymentGateway.getRequestCount()).isEqualTo(2);
+        assertThat(spyPaymentGateway.getRequestCount()).isEqualTo(1);
     }
 
-    private String thereIsProduct(String productId, BigDecimal price) {
-        return productId;
+    private String thereIsProduct(String name, String desc, BigDecimal price) {
+        return catalog.addProduct(name, desc, price);
     }
 
-    private String thereIsCustomr(String id) {
+    private String thereIsCustomer(String id) {
         return id;
     }
 
     private SalesFacade thereIsSales() {
-    return new SalesFacade(new inMemoryCartStorage(), new OfferCalculator() , spyPaymentGateway, reservationRepository);
-        }
-
+        return new SalesFacade(
+                new inMemoryCartStorage(),
+                new OfferCalculator(catalog),
+                spyPaymentGateway,
+                reservationRepository
+        );
+    }
 }

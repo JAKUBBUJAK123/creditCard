@@ -9,53 +9,50 @@ public class Buyer {
     String firstName;
     String lastName;
     String language;
-    List<ProductU> Products;
 
-    public List<ProductU> getProducts() {
-        return Products;
-    }
-
-    public void setProducts(List<ProductU> products) {
-        Products = products;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
 
     public String getEmail() {
         return email;
+    }
+
+    public Buyer setEmail(String email) {
+        this.email = email;
+        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
+    public Buyer setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public Buyer setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
+    public Buyer setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
     public String getLanguage() {
         return language;
+    }
+
+    public Buyer setLanguage(String language) {
+        this.language = language;
+        return this;
     }
 }

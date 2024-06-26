@@ -3,7 +3,7 @@ package pl.jbujak.ecommerse.catalog.payU;
 public class ProductU {
     String name;
     Integer unitPrice;
-
+    Integer quantity;
     public String getName() {
         return name;
     }
@@ -28,6 +28,6 @@ public class ProductU {
         this.quantity = quantity;
     }
 
-    Integer quantity;
+
 
 }
